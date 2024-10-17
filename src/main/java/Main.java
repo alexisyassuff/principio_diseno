@@ -1,6 +1,3 @@
-package org.example;
-
-
 import org.example.Liskov.*;
 import org.example.OpenClosed.Circle;
 import org.example.OpenClosed.Rectangle;
@@ -17,19 +14,24 @@ public class Main {
         System.out.println("Área del círculo: " + circle.area());
         System.out.println("Área del rectángulo: " + rectangle.area());
 
-    //Liskov
-        Flyable flyingBird = new FlyingBird();
-        Aguila aguila = new Aguila();
+        Movible coche = new Coche();
+        Movible avion = new Avion();
 
-        aguila.fly();
-        flyingBird.fly(); // Salida: El pájaro está volando
+        // Ambos cumplen el principio de Liskov: puedo sustituir Movible por cualquier clase que lo implemente
+        moverTransporte(coche);  // Salida: El coche está moviéndose por la carretera.
+        moverTransporte(avion);  // Salida: El avión está moviéndose en la pista.
 
-        // Los pingüinos no vuelan, por lo tanto no usamos la interfaz Flyable
-        Penguin penguin = new Penguin();
-        System.out.println("Los pingüinos no pueden volar");
+        // Para el avión, puedo usar también la capacidad de volar
+        Volador avionVolador = (Volador) avion;
+        avionVolador.volar();    // Salida: El avión está volando en el cielo.
+    }
+
+    public static void moverTransporte(Movible transporte) {
+        transporte.mover();  // Llamada al método genérico, puede ser coche o avión
+    }
 
 
     }
 
-}
+
 
